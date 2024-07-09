@@ -1,24 +1,27 @@
 package string_package;
 
-public class StringClass {
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
 
-    static class Demo implements Cloneable {
 
-        public Demo(String value1) {
-            this.value1 = value1;
-        }
+public class StringClass{
 
-        //        public Object clone()throws CloneNotSupportedException{
-//            return super.clone();
-//        }
-        public Boolean Check(int number) {
-            return  number >1 && true;
-        }
-
-        private String value1;
+     static int Check(){
+        return 4;
     }
 
-    public static void main(String[] args) throws CloneNotSupportedException {
+    public  Boolean Check(int number) {
+        System.out.println("Check method from String class");
+        return  number >1 && true;
+    }
+
+    public String method(){
+        return "StringClass Method";
+    }
+
+    public static void main(String[] args){
 
         String s1 = new String("code");
         String s2 = "code";
