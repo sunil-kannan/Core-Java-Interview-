@@ -1,8 +1,10 @@
 package string_package;
 
+import java.io.PrintStream;
+
 public class StringBuilderClass {
     String s2 = "code";
-    public static void main(String[] args) {
+    public static void main (String[] args) {
 
         // Create an object
         StringBuilder sb1 = new StringBuilder("Hello");
@@ -20,5 +22,8 @@ public class StringBuilderClass {
         System.out.println(sb1); // Prints "Hello World"
         System.out.println(sb2); // Also prints "Hello World"
         System.out.println(sb1 == sb2); //true
+
+
+
     }
 }
