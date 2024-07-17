@@ -41,12 +41,16 @@ interface  Demo2{
 public class Learning{
     int a=1;
     public void check(){
-        Demo3 demo = new Demo3();
+        Demo demo = new Demo3();
+        demo.Check(3);
         Learning object = new Learning();
         Learning object2 = object;
         object2.a=49;
         System.out.println(object.a);
 
+        String check = "Sunil";
+        String check1 = "Sunil";
+        System.out.println("Compare: "+check1.compareTo(check));
         demo.PassReference(object);
         System.out.println("Object A: "+object.a);
         Demo.staticVariable = 30;
@@ -67,12 +71,6 @@ public class Learning{
     finally {
         System.out.println("Finally method called");
     }
-
-
-
-
-
-
 
     }
 

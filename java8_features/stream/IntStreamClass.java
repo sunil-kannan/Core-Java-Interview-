@@ -7,8 +7,6 @@ import java.util.stream.*;
 
 public class IntStreamClass {
 
-
-
     public static boolean isPrime(int number) {
         return number > 1 && IntStream.range(2, number).noneMatch(n -> number % n == 0);
     }

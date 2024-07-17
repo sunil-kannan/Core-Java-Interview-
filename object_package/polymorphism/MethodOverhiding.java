@@ -1,9 +1,30 @@
 package object_package.polymorphism;
 
 class Demo{
+
+    public static int check(int a){
+        System.out.println("Calling from Demo class");
+        System.out.println("Static variable: "+a);
+        return '1';
+    }
     public static String staticMethod(){
         return "Static Method Called From Demo Class";
     }
+    public String stringMethod(){
+        return "String from Demo";
+    }
+
+
+}
+class Demo3 extends Demo {
+    public static int check(int a){
+        System.out.println("Calling from Demo3 class");
+        return a;
+    }
+    public String stringMethod(){
+        return "String from Demo3";
+    }
+
 }
 public class MethodOverhiding extends Demo{
 
@@ -22,5 +43,8 @@ public class MethodOverhiding extends Demo{
     public static void main(String[] args) {
         System.out.println(MethodOverhiding.staticMethod()); // Static Method Called From MethodOverhiding Class
         System.out.println(MethodOverhiding.staticMethod("Java")); // this is method overloading
+        Demo demo = new Demo3();
+        demo.check(3);
+        System.out.println(demo.stringMethod());
     }
 }
