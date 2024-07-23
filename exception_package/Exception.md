@@ -27,7 +27,8 @@ public class ExceptionHandling {
 }
 
 ```
-## Unchecked Exceptions in Method Overriding
+## Exception in Method Overriding
+### Unchecked Exceptions in Method Overriding
 The overriding method can declare any unchecked exceptions (subclasses of RuntimeException or Error) without restrictions.
 ```java
 import java.io.IOException;
@@ -46,7 +47,7 @@ public class Main extends Parent {
 
 }
 ```
-## Checked Exceptions in Method Overriding
+### Checked Exceptions in Method Overriding
 - The overriding method can declare the same checked exceptions as the superclass method or any subset (including subclasses) of those exceptions.
 - The overriding method cannot declare new checked exceptions or broader checked exceptions that are not declared by the superclass method.
 
@@ -87,13 +88,13 @@ public class Main extends Parent {
 }
 ```
 
-## Exception in Static block 
-We cannot throw a checked exception from a static block; doing so will result in a compile-time error. 
-However, we can handle checked exceptions within the scope of a static block using try-catch logic 
-without rethrowing the exception using the throw keyword. Checked exceptions cannot be propagated from 
+## Exception in Static block
+We cannot throw a checked exception from a static block; doing so will result in a compile-time error.
+However, we can handle checked exceptions within the scope of a static block using try-catch logic
+without rethrowing the exception using the throw keyword. Checked exceptions cannot be propagated from
 static blocks because these blocks are executed only once during compile-time and are not invoked by any method.
-- You can throw unchecked exceptions from a static block because they are runtime exceptions. However, 
-if such exceptions are not caught and handled by the program, they can lead to termination of the program.
+- You can throw unchecked exceptions from a static block because they are runtime exceptions. However,
+  if such exceptions are not caught and handled by the program, they can lead to termination of the program.
 
 ```java
 static { 
@@ -107,3 +108,30 @@ static {
         }
     }
 ```
+
+### Exception inside a Lambda Expression
+If we are using a standard functional interface that is given by Java, then we can throw only unchecked exceptions. This is because the standard functional interfaces of Java do not have a “throws” clause defined in their signature. For example, we can throw IllegalArgumentException inside a function interface as shown below:
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class LambdaExceptionHandling {
+  public static void main(String[] args) {
+    List<Integer> list = Arrays.asList(2, 3, 5, -10, 20);
+
+    // This will stop the code, because you have not given a try block
+    list.forEach(i -> {
+      if (i < 0) {
+        // below will give the compile error
+        throw new IllegalArgumentException("Negative numbers are not allowed.");
+        // below code is possible because RuntimeException is an unchecked exception
+        throw new RuntimeException(); 
+      }
+      System.out.println(i);
+    });
+  }
+}
+```
+
+

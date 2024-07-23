@@ -1,14 +1,15 @@
 package exception_package.exception_handling;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
-
+import java.sql.SQLException;
+import java.util.*;
 
 public class TryWithResources {
 
     public void handleError(String file) {
-
         /*
         Introduced in Java 7
         Try-with-resources" statement is a feature introduced in Java 7 that simplifies the process of working with resources

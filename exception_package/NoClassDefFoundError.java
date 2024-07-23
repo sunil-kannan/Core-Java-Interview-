@@ -10,9 +10,9 @@ Caused by: java.lang.ClassNotFoundException: Errors.NoClassDefFoundError
 
 
 public class NoClassDefFoundError {
+
     public static void main(String[] args) {
         System.out.println("Check");
-
         String value = new String("code");
         String value1 = "code";
         System.out.println(value.equals(value1));

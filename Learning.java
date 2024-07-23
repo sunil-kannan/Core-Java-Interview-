@@ -1,24 +1,23 @@
 import string_package.StringClass;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.sql.SQLException;
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
 
 class Demo {
-    static int staticVariable; // Stored in the method area
-    public static int check(int a){
-        System.out.println("Calling from Demo class");
-        System.out.println("Static variable: "+staticVariable);
-        return '1';
+    void doThis()  {
+        // ...
+        int i = 3/0;
     }
-    public Demo() {}
-    public  Boolean Check(int number) {
-
-        return  number >1 && true;
+    void dothat() throws  FileNotFoundException {
+        BufferedReader reader = new BufferedReader(new FileReader("file"));
     }
 
-    public void PassReference(Learning learning){ learning.a =10;}
 
-    private String value1;
 }
 class Demo3 extends Demo{
     public static int check(int a){
@@ -38,39 +37,22 @@ interface  Demo2{
 }
 
 
-public class Learning{
+public class Learning extends Demo{
     int a=1;
-    public void check(){
-        Demo demo = new Demo3();
-        demo.Check(3);
-        Learning object = new Learning();
-        Learning object2 = object;
-        object2.a=49;
-        System.out.println(object.a);
 
-        String check = "Sunil";
-        String check1 = "Sunil";
-        System.out.println("Compare: "+check1.compareTo(check));
-        demo.PassReference(object);
-        System.out.println("Object A: "+object.a);
-        Demo.staticVariable = 30;
-        System.out.println(demo.check(3));
+    static void method1(){
+
+            Demo demo = new Demo();
+            demo.doThis();
+
+
     }
+
     public static void main(String[] args) {
-    try{
-        Learning object1 = new Learning();
-        object1.check();
+
+    method1();
 
 
-        Thread.sleep(5000);
-        System.out.println("Static Variable: "+Demo.staticVariable);
-
-    }catch (Exception e){
-        e.printStackTrace();
-    }
-    finally {
-        System.out.println("Finally method called");
-    }
 
     }
 

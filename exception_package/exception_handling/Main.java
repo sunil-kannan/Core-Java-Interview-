@@ -34,6 +34,7 @@ public class Main extends Parent {
         // Compilation error because IOException is of broader scope than FileNotFoundException
     }
 
+
     // Method to score based on file content, handling FileNotFoundException
     static int score(String file) {
         Scanner fileContents = null;
@@ -61,25 +62,13 @@ public class Main extends Parent {
 
 
     public static void main(String[] args) {
-        try {
-            System.out.println(2.0/0);
-            System.out.println(1/0);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        finally {
-            System.out.println("Finally executed");
-            System.out.println(1/0);
-//            System.out.println(2.0/0);
-        }
 
         TryWithResources tryWithResources = new TryWithResources();
         MultiCatchBlock multiCatchBlock = new MultiCatchBlock();
         TryWithFinally tryWithFinally = new TryWithFinally();
 
-        tryWithResources.handleError("wrong file");
 
+        tryWithResources.handleError("wrong file");
         multiCatchBlock.handleError();
 
         tryWithFinally.handleError();
