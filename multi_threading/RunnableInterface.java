@@ -13,6 +13,7 @@ public interface RunnableInterface {
         }
     }
 
+
     public static void main(String[] args) {
         /* There are 3 ways you can run the thread using runnable interface*/
 

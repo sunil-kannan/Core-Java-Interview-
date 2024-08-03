@@ -159,3 +159,57 @@ public class DaemonThreadExample {
 
 ```
 
+
+# Java Memory Model (JMM) - Visibility and Consistency
+
+![plot](./../images/thread_visibility.png)
+
+The image illustrates a key concept in the Java Memory Model (JMM) regarding visibility and consistency of variable updates between threads. Here's a detailed explanation:
+
+## Components in the Image:
+
+- **CPU**: Each CPU in a multi-core system has its own set of registers and caches (L1, L2, L3).
+- **Thread**: Threads run within CPUs, utilizing the CPU’s registers and caches.
+- **RAM**: Main memory where objects are stored.
+- **Heap**: Part of the RAM where Java objects are allocated.
+- **Thread Stack**: Memory area dedicated to each thread for storing method frames, local variables, etc.
+
+## Visibility and Consistency of Variable Updates:
+
+### Local Caches
+Each CPU has its own local cache (L1, L2, L3) which it uses to store copies of variables from the main memory (RAM) for faster access.
+
+### Thread Local Variables
+Each thread can have copies of variables in the CPU registers and caches it is running on. This can lead to situations where different threads have different views of the same variable.
+
+### Heap and Main Memory
+The heap in the RAM is where the actual objects and their fields (e.g., `obj.count`) reside.
+
+## Explanation of the Image:
+
+1. **Initial State**:
+    - Two threads, each running on different CPUs, access the same object `obj`.
+    - The object `obj` in the heap has an initial value of `count = 1`.
+
+2. **Thread Local Copy**:
+    - Each thread may load the value of `obj.count` into its CPU registers or cache.
+    - Let's say:
+        - Thread 1 reads `obj.count` and gets `1`.
+        - Thread 2 reads `obj.count` and gets `1`.
+
+3. **Thread 1 Updates `obj.count`**:
+    - Thread 1 increments `obj.count` to `2` and stores the updated value in its local cache/register.
+    - This change is not immediately visible to Thread 2 because the update is not written back to the main memory (RAM).
+
+4. **Thread 2 Updates `obj.count`**:
+    - Concurrently, Thread 2 increments its local copy of `obj.count` (still `1` from its view) to `2`.
+    - Thread 2’s change is also in its local cache/register and not yet visible to Thread 1.
+
+5. **Inconsistency**:
+    - At this point, there are inconsistencies:
+        - In the main memory (heap), `obj.count` might still be `1` if neither thread has written back their changes.
+        - Thread 1 sees `obj.count` as `2` in its local cache.
+        - Thread 2 also sees `obj.count` as `2` in its local cache.
+
+
+Click here for the reference [Java Memory Model](https://dip-mazumder.medium.com/java-memory-model-a-comprehensive-guide-ba9643b839e)

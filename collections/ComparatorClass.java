@@ -65,8 +65,6 @@ public class ComparatorClass {
         studentsList.sort(Comparator.comparing(Student::getName));
         System.out.println("Sorted by name using method reference: " + studentsList);
 
-
-
         // like this you can have the function within the same class
         Comparator<Student> comparator = (o1, o2) -> {
             if(o1.id > o2.id){

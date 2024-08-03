@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 class Parent1 {
-    void doThis() {
+    void doThis() throws RuntimeException{
         // This will throw a runtime exception (unchecked exception)
         int i = 3 / 0; // This will cause an ArithmeticException, which is a runtime exception
         throw new RuntimeException(); // This does not need a 'throws' clause
