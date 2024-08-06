@@ -36,6 +36,9 @@ interface Employee{
 }
 
 class EmployeeImpl{
+    public void employeeNameWithNonStaticMethod(String s){
+        System.out.println("Employee name: "+s);
+    }
     public static void employeeName(String s){
         System.out.println("Employee name: "+s);
     }
@@ -50,10 +53,11 @@ public class Main {
             System.out.println(s);
         };
         employee.getEmployeeName("John");
-
+        EmployeeImpl emp = new EmployeeImpl() ;
         // Using a method reference to implement the Employee interface
-        Employee employee1 = EmployeeImpl::employeeName; // method reference
-        employee1.getEmployeeName("John");
+        Employee employee1 = EmployeeImpl::employeeName;// method reference
+        Employee employee2= emp::employeeNameWithNonStaticMethod; // method reference for non static method will be done by creating object
+        employee2.getEmployeeName("John");
 
         List<String> myList = List.of("Godson", "Sunil", "Gopal");
         ListConsumer1<String> listConsumer = new ListConsumer1<>(myList);

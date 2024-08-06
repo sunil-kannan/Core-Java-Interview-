@@ -1,7 +1,8 @@
-package collections.linkedlist;
+package collections.list.linkedlist;
 
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class OwnLinkedList<T> {
     private Node<T> head;
@@ -81,10 +82,6 @@ public class OwnLinkedList<T> {
 
 
     public static void main(String[] args) {
-        ArrayList<Integer> arraylist = new ArrayList<>();
-        if (arraylist == null) {
-            
-        }
         OwnLinkedList<Integer> list = new OwnLinkedList<>();
         list.insert(1);
         list.insert(5);
@@ -97,7 +94,5 @@ public class OwnLinkedList<T> {
         list.removeFirstNode();
         list.print(list);
         System.out.println("Size: " + list.size());
-
-
     }
 }

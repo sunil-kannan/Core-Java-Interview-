@@ -1,6 +1,7 @@
 package object_package.polymorphism;
 
 class User{
+    int a = 10;
     String name;
     int age;
     User(String name, int age){
@@ -14,7 +15,9 @@ class User{
 
 }
 class Company extends User{
+    int a = 5;
     String companyName;
+
     Company(String name, int age, String companyName) {
         super(name, age);
         this.companyName = companyName;
@@ -29,8 +32,9 @@ class Company extends User{
 public class MethodOverriding  {
 
     public static void main(String[] args) {
-        Company newUser = new Company("Sunil", 22, "Thiran tech");
+        User newUser = new Company("Sunil", 22, "Thiran tech");
         newUser.display();
+        System.out.println("Does variable can be overriden through polymorphism: "+newUser.a); // variables can't be override in runtime only method can be override in runtime
 
     }
 }

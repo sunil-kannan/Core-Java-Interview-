@@ -92,38 +92,11 @@ public class Learning {
         });
         ExecutorService executorService = Executors.newFixedThreadPool(10);
         // Simulate handling multiple requests
-        for (int i = 0; i < 5; i++) {
-            final int requestId = i;
-            executorService.submit(() -> handleRequest("Request-" + requestId));
-        }
-        executorService.shutdown();
+
     }
-    static String  data = new String();
-    public static void handleRequest(String request) {
-        // Set the request data for the current thread
-//        requestData.set(request);
 
 
-        // Simulate processing the request
-        try {
-            Double rando =Math.random();
-            data = rando.toString();
-            check1(rando);
-            Thread.sleep((long) (rando * 1000)); // Simulate variable processing time
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        // Retrieve and print the request data for the current thread
-        System.out.println(Thread.currentThread().getName() + " processed " + data);
-
-        // Clear the ThreadLocal variable
-//        requestData.remove();
-    }
-    public static void check1(double random){
-        System.out.println(Thread.currentThread().getName() + " processed 1 = "+random );
-    }
 
 }
 
