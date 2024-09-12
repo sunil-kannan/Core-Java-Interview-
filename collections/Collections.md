@@ -86,11 +86,95 @@ public class Main {
 
 
 ## List
+- List is a collection of homogeneous and heterogeneous
+- List class maintains insertion order
+
+
+### ArrayList
+- ArrayList having index and index starts with 0.
+- Java ArrayList class uses a dynamic array for storing the elements. It is like an array, but there is no size limit.
+
+### LinkedList
+- Manipulation is fast because no shifting needs to occur.
 
 ### Vector
 - They are very similar to ArrayList, but Vector is synchronized and has some legacy methods that the collection framework does not contain.
 - It also maintains an insertion order like an ArrayList. Still, it is rarely used in a non-thread environment as it is synchronized, and due to this, it gives a poor performance in adding, searching, deleting, and updating its elements.
 - The Iterators returned by the Vector class are fail-fast. In the case of concurrent modification, it fails and throws the ConcurrentModificationException.
+
+### Stack 
+- Stack is a data structure which posses LIFO (Last In First Out).
+- `object.pop()` will remove the last element.
+
+
+## Queue
+- The Queue is also called as FIFO (First in First Out).
+
+### Priority Queue
+- FIFO(First in first out) pattern
+- Only allow those generic types that are comparable which means class should implement comparable interface.
+
+### ArrayDeque
+- FIFO and LIFO
+- Suitable for scenarios where you need to perform operations at both ends of the deque (double-ended queue),
+  like adding or removing elements from the front or back.
+- ArrayDeque implements `Deque` interface
+
+## Set
+### HashSet
+- Insertion order is not preserved.
+- Hashset cannot allow duplicate values.
+- Hashset allow null values.
+
+### LinkedHashSet
+- It uses a hashtable & a doubly-linked list to store & maintain the elements.
+- It allows an easy way to maintain the insertion order.
+
+### TreeSet
+- TreeSet class contains unique elements only like HashSet.
+- TreeSet doesn't allow null element.
+- TreeSet can only allow those generic types that are comparable which means class should implement comparable interface.
+
+
+## Map
+- A Map is a collection of key/value pairs that can use any data type as a key and can maintain the order of its entries.
+- Map doesn't allow duplicate keys, but it allows duplicate values. 
+- HashMap and LinkedHashMap allows null keys and null values but TreeMap doesn't allow any null key or value.
+
+### HashMap
+- HashMaps are not ordered, which means that the order in which elements are added to the map is not preserved.
+- HashMaps uses a hash function to map keys to indices in an array. This allows for a quick lookup of values based on keys.
+- HashMaps allow for duplicate values, but not duplicate keys. If a duplicate key is added, the previous value associated with the key is overwritten.
+- HashMaps allow for null values and keys. This means that a null key can be used to store a value, and a null value can be associated with a key.
+- HashMaps are not thread-safe, which means that if multiple threads access the same hashmap simultaneously, it can lead to data inconsistencies. If thread safety is required, ConcurrentHashMap can be used.
+
+### LinkedHashMap
+- It is the same as HashMap with an additional feature that it maintains insertion order.
+
+### TreeMap
+- Only allows keys of generic types that are comparable, meaning the class should implement the Comparable interface.
+- By using TreeMap the order will be preserved but in Hashmap it may or may not preserve the order.
+
+## Collections That Need `Comparator` or `Comparable`:
+
+1. **Sorted Collections**: Collections that maintain a sorted order require either a `Comparator` or `Comparable`. These include:
+
+    - **`TreeSet`**: This is a sorted set. It needs either the elements to implement `Comparable` or a `Comparator` to determine the order of the elements.
+    - **`TreeMap`**: This is a sorted map. It requires the keys to be `Comparable` or a `Comparator` to order the keys.
+    - **`PriorityQueue`**: This is a queue with priority. It needs either the elements to implement `Comparable` or a `Comparator` to determine the priority.
+
+2. **Non-Sorted Collections**: Collections that do not enforce any order or sorting do not need a `Comparator` or `Comparable`:
+
+    - **`ArrayList`**: No sorting or ordering by default.
+    - **`LinkedList`**: No sorting or ordering by default.
+    - **`HashSet`**: No sorting or ordering by default.
+    - **`HashMap`**: No sorting or ordering by default.
+    - **`LinkedHashSet`**: Maintains insertion order but does not sort elements.
+
+### Quick Mnemonics:
+
+- **"Tree and Priority"**: If the collection name includes "Tree" or "Priority", it needs a `Comparator` or `Comparable`.
+- **"Order vs. No Order"**: Collections with built-in order or sorting mechanisms (like `TreeSet` and `PriorityQueue`) need a way to define this order. Collections without such mechanisms (like `ArrayList` and `HashSet`) do not.
 
 # Concurrent Modification
 

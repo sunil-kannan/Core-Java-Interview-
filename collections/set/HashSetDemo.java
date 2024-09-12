@@ -17,6 +17,7 @@ public class HashSetDemo {
         hashSet.add(new Movie("Sarkar", 2018, "Vijay", "A.R. Murugadoss"));
         hashSet.add(new Movie("Theri", 2016, "Vijay", "Atlee"));
         hashSet.add(null);
+        hashSet.add(null);
         // set will allow same value if there is no hashcode and equals method in the Book class
         hashSet.add(new Movie("Theri", 2016, "Vijay", "Atlee"));
         Movie movie = new Movie("Mersal", 2017, "Vijay", "Atlee");

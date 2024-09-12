@@ -1,5 +1,7 @@
 package multi_threading.executor_service;
 
+import com.sun.security.jgss.GSSUtil;
+
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -19,7 +21,6 @@ public class CallableAndFuture {
             return Arrays.asList("1","2");
         });
         System.out.println(futureValue.get()); // [1, 2]
-
         ExecutorService service = Executors.newFixedThreadPool(10);
         List<Future<Integer>> allFuture = new ArrayList<>();
         for (int i = 0; i < 10; i++) {

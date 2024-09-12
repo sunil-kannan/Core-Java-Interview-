@@ -30,6 +30,9 @@ public class DaemonThread {
 
         // Start the thread
         thread.start();
+        /**
+         * You can't set the thread as Daemon after the thread starts
+         */
 
         // Main thread sleeps for 3.1 seconds (3100 milliseconds)
         // After 3.1 seconds, the main thread will finish, and if the 'thread' is a daemon,

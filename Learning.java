@@ -1,4 +1,5 @@
 import string_package.StringClass;
+import successive_refinement.abstraction.ArgumentMarshaler;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -9,94 +10,210 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.random.RandomGenerator;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
-
-interface Operation{
-    public int doOperation(int a, int b);
+class Money{
 
 }
-class MyException extends Exception{
-    public MyException(String message){
-        super(message);
+
+
+abstract class Employee {
+    public abstract boolean isPayday();
+    public abstract Money calculatePay();
+    public abstract void deliverPay(Money pay);
+}
+class EmployeeRecord {
+    public enum EmployeeType { COMMISSIONED, HOURLY, SALARIED }
+
+    public EmployeeType type;
+    // Other relevant fields, such as name, id, etc.
+
+    public EmployeeRecord(EmployeeType type) {
+        this.type = type;
     }
 }
-public class Learning {
 
-    int a = 1;
+class CommissionedEmployee extends Employee {
+    private EmployeeRecord record;
 
-    public static void check() {
-        String s = "393893";
-        char[] ch = s.toCharArray();
-        int numRows = 4;
-        String sol = "";
-        int temp = numRows;
-        // int[][] arr= new int[numRows][numRows];
-        int length = s.length() / 2;
-        String[] arr = new String[length];
-        System.out.println(arr.length);
-        int count = 0;
-        while (count <= s.length()) {
-            int tempcount = 0;
-            for (int i = 0; i < numRows; i++) {
-                if (arr[i] == null) {
+    public CommissionedEmployee(EmployeeRecord record) {
+        this.record = record;
+    }
 
-                } else {
-                    arr[i] = arr[i] + s.charAt(count);
-                }
+    @Override
+    public boolean isPayday() {
+        // Implementation specific to CommissionedEmployee
+        return false;
+    }
 
-                System.out.println(arr.length);
-                count++;
+    @Override
+    public Money calculatePay() {
+        // Implementation specific to CommissionedEmployee
+        return null;
+    }
+
+    @Override
+    public void deliverPay(Money pay) {
+        // Implementation specific to CommissionedEmployee
+    }
+}
+
+class HourlyEmployee extends Employee {
+    private EmployeeRecord record;
+
+    public HourlyEmployee(EmployeeRecord record) {
+        this.record = record;
+    }
+
+    @Override
+    public boolean isPayday() {
+        // Implementation specific to HourlyEmployee
+        return false;
+    }
+
+    @Override
+    public Money calculatePay() {
+        // Implementation specific to HourlyEmployee
+        return null;
+    }
+
+    @Override
+    public void deliverPay(Money pay) {
+        // Implementation specific to HourlyEmployee
+    }
+}
+
+class SalariedEmployee extends Employee {
+    private EmployeeRecord record;
+
+    public SalariedEmployee(EmployeeRecord record) {
+        this.record = record;
+    }
+
+    @Override
+    public boolean isPayday() {
+        // Implementation specific to SalariedEmployee
+        return false;
+    }
+
+    @Override
+    public Money calculatePay() {
+        // Implementation specific to SalariedEmployee
+        return null;
+    }
+
+    @Override
+    public void deliverPay(Money pay) {
+        // Implementation specific to SalariedEmployee
+    }
+}
+
+interface EmployeeFactory {
+    Employee makeEmployee(EmployeeRecord r) throws Exception;
+}
+
+
+class EmployeeFactoryImpl implements EmployeeFactory {
+    static{
+        System.out.println("Static method from EmployeeFactoryImpl");
+    }
+    public Employee makeEmployee(EmployeeRecord r) throws  Exception {
+        switch (r.type) {
+            case COMMISSIONED:
+                return new CommissionedEmployee(r);
+            case HOURLY:
+                return new HourlyEmployee(r);
+            case SALARIED:
+                return new SalariedEmployee(r);
+            default:
+                throw new Exception();
+        }
+    }
+}
+
+abstract class A {
+    abstract void showA();
+
+
+}
+interface C{
+    void showC();
+}
+abstract class B extends A implements C {
+    abstract void show1();
+}
+class Check extends B{
+
+    @Override
+    void showA() {
+
+    }
+
+    @Override
+    public void show1() {
+
+    }
+
+    @Override
+    public void showC() {
+
+    }
+}
+
+
+
+
+public class Learning extends EmployeeFactoryImpl{
+    static{
+        System.out.println("Static method from Learning");
+    }
+    Learning(){
+        System.out.println("Learning constructor");
+    }
+    public class Payroll {
+        static{
+            System.out.println("Static method from Payroll");
+        }
+        private EmployeeFactory employeeFactory = new EmployeeFactoryImpl();
+        public Money calculatePay(EmployeeRecord r) throws Exception {
+            Employee e = employeeFactory.makeEmployee(r);
+            return e.calculatePay();
+        }
+    }
+static class check implements Callable<Runnable>{
+    @Override
+    public Runnable call() throws Exception {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("run");
             }
-        }
+        };
+        return runnable;
     }
+}
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
+        RandomGenerator.StreamableGenerator streamableRnd
+                = RandomGenerator.StreamableGenerator.of("L128X1024MixRandom");
+        List<int[]> listOfArrOfIntsSG
+                = streamableRnd.rngs(5) // get 5 pseudo-random generators
+                .map(r -> r.ints(10)) // generate 10 ints per generator
+                .map(IntStream::toArray)
+                .toList();
+        System.out.println(listOfArrOfIntsSG);
+        listOfArrOfIntsSG.forEach(System.out::println);
 
-    private int operate (int a, int b, Operation op){
-        return op.doOperation(a,b);
+//        Learning learning = new Learning();
+//        int[][] arr = new int[2][3];
+//        ExecutorService service = Executors.newFixedThreadPool(10);
+//        Future<Runnable> future = service.submit(new check());
+//        Runnable runnable = future.get();
+//        runnable.run();
+//        service.shutdown();
+//        System.out.println("dkkd"+future.get().run());
     }
-    private static int multiply(int a, int b){
-        return a*b;
-    }
-
-    public static void throwSomeEx(int a) throws FileNotFoundException, MyException{
-        if(a==2){
-            throw new MyException("Error");
-        }
-        throw new FileNotFoundException();
-    }
-
-
-//    private static ThreadLocal<String> requestData = new ThreadLocal<>();
-
-    public static void main(String[] args) throws InterruptedException {
-
-        Operation sum = (a, b) -> a+b;
-        Operation div = (a, b) -> a/b;
-        Operation sub = (a, b) -> a-b;
-
-        Learning  learning = new Learning();
-        System.out.println(learning.operate(4,8,sum));
-        System.out.println(learning.operate(3,1, div));
-        System.out.println(learning.operate(5,2, sub));
-        System.out.println(learning.operate(4,5,Learning::multiply));
-
-        try{
-            throwSomeEx(2);
-        }catch (FileNotFoundException e){
-            System.err.println(e.getMessage());
-        }
-        catch (Exception e){
-            System.err.println(e.getMessage());
-        }
-        ThreadLocal<SimpleDateFormat> df = ThreadLocal.withInitial(()->{
-            return new SimpleDateFormat("yyyy-MM-dd");
-        });
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
-        // Simulate handling multiple requests
-
-    }
-
-
-
 
 }
 

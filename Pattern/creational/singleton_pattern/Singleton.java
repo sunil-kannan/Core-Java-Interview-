@@ -1,4 +1,4 @@
-package Pattern;
+package Pattern.creational.singleton_pattern;
 
 class SingletonClass{
     // making constructor private so that object will not be created by any other class

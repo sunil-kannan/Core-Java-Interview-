@@ -1,28 +1,32 @@
 package multi_threading.thread_local;
 
-import javax.naming.Context;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.Map;
-class Contexts {
-    private String userName;
 
-    public Contexts(String userName) {
-        this.userName = userName;
-    }
-}
+/**
+ * The Java ThreadLocal class enables you to create variables that can only be read and written by the same thread.
+ * Thus, even if two threads are executing the same code, and the code has a reference to the same ThreadLocal variable,
+ * the two threads cannot see each other's ThreadLocal variables.
+ * Thus, the Java ThreadLocal class provides a simple way to make code thread safe that would not otherwise be so.
+ */
 class SharedMapWithUserContext implements Runnable{
+     final ThreadLocal<Integer> threadLocal = new ThreadLocal<>();
+
     public SharedMapWithUserContext(Integer id){
         this.userId= id;
     }
-    public static Map<Integer, Contexts> userContextPerUserId = new ConcurrentHashMap<>();
     private Integer userId;
     @Override
     public void run() {
-        String name= UUID.randomUUID().toString();
-        userContextPerUserId.put(userId, new Contexts(name));
-        System.out.println("thread context for given userId: "
-                + userId + " is: " + userContextPerUserId.get(userId));
+        System.out.println("start");
+        threadLocal.set(userId);
+        System.out.println("End");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(threadLocal.get());
+        threadLocal.remove();
     }
 }
 public class Main {
@@ -32,7 +36,6 @@ public class Main {
         SharedMapWithUserContext secondUser = new SharedMapWithUserContext(2);
         new Thread(firstUser).start();
         new Thread(secondUser).start();
-        Thread.sleep(1000);
-        System.out.println(SharedMapWithUserContext.userContextPerUserId.size());
+        Thread.sleep(500);
     }
 }

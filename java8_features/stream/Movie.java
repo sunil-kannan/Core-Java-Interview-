@@ -2,7 +2,7 @@ package java8_features.stream;
 
 import java.util.Objects;
 
-public class Movie{
+public class Movie implements Comparable<Movie>{
     private String name;
 
     @Override
@@ -73,4 +73,8 @@ public class Movie{
     private String director;
 
 
+    @Override
+    public int compareTo(Movie o) {
+        return this.getYear() - o.getYear();
+    }
 }

@@ -126,6 +126,8 @@ By default, when you create a thread in Java without explicitly setting it as a 
 
 When you set a thread as a daemon thread in Java by calling `thread.setDaemon(true)`, it means that the thread will run in the background and will not prevent the JVM from exiting.
 
+You can't set the thread as Daemon after the thread starts, if you set it means it will throw illegalThreadState Exception
+
 In other words, the JVM can terminate even if daemon threads are still running. If all non-daemon threads have finished executing, the JVM will exit regardless of whether there are daemon threads still running.
 
 Garbage collector thread is a daemon thread. Daemon thread is a low priority thread which runs intermittently in the background doing the garbage collection operation or other requests for the java runtime system.

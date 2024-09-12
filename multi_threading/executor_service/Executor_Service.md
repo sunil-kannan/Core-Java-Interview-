@@ -197,3 +197,45 @@ It can be thought of as a container that holds the result of an asynchronous ope
 - `runAsync`: This static method creates a CompletableFuture from a Runnable task. It is used when you want to perform a computation or a task that does not return a result.
 
 - `supplyAsync`: This static method creates a CompletableFuture from a Supplier task. It is used when you need to perform a computation that returns a result.
+
+### 📃 Reference:
+[Completeable Future reference] (https://medium.com/@chinmayabehera_50797/use-case-of-completablefuture-anyof-method-1667e046d2a7)
+
+## Semaphore
+### How Does a Semaphore Work?
+The counter of the semaphore holds a value of 0 or higher.
+
+- When the value of the counter is greater than 0, the thread is allowed to access the shared resource and the counter value reduces by 1.
+- Otherwise until a permit can be obtained, the thread is blocked.
+- After the thread completes execution, it releases the resource that is no longer required. Once the resource is released, the counter value is increased by 1.
+- Another thread awaiting the acquisition of the same resource can now obtain a permit to access the resource.
+- If the counter is 0, permission to access the resource is denied.
+
+![Semaphore working](./../../images/semaphore.png)
+
+
+# Difference Between Mutex and Semaphore
+
+| Aspect              | **Mutex**                               | **Semaphore**                           |
+|---------------------|-----------------------------------------|-----------------------------------------|
+| **Ownership**        | Only the thread that locks it can unlock it | Any thread can signal or release it    |
+| **Number of Resources** | Protects a single resource              | Can manage multiple resources          |
+| **Counter**          | No counter, only locked/unlocked state  | Has a counter for tracking resources   |
+| **Types**            | Only one type (binary)                  | Binary and counting semaphores         |
+| **Use Case**         | Exclusive access to a resource          | Managing access to a pool of resources |
+
+## Additional Explanation
+
+### Mutex (Mutual Exclusion Object)
+- **Binary State**: A mutex can only be locked or unlocked, and it enforces mutual exclusion by allowing only one thread to access the resource at a time.
+- **Example Use Case**: Protecting access to a shared variable or data structure in a multithreaded environment.
+
+### Semaphore
+- **Counting Mechanism**: A semaphore uses an internal counter to track the number of available resources. Threads decrement the counter to "acquire" a resource and increment it to "release" a resource.
+    - **Binary Semaphore**: Allows only one thread to access the resource (similar to a mutex).
+    - **Counting Semaphore**: Manages multiple resources by allowing several threads to access a pool of resources.
+- **Example Use Case**: Managing access to a pool of database connections or hardware resources.
+
+
+
+
