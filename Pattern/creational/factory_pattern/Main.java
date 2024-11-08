@@ -4,21 +4,18 @@ interface Profession{
     void print();
 }
 class Teacher implements Profession{
-
     @Override
     public void print() {
         System.out.println("Teacher profession");
     }
 }
 class Doctor implements Profession{
-
     @Override
     public void print() {
         System.out.println("Doctor profession");
     }
 }
 class Engineer implements Profession{
-
     @Override
     public void print() {
         System.out.println("Engineer profession");

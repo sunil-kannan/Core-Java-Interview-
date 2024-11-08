@@ -87,14 +87,32 @@ public class J {
 
 ## Streams
 
-
-
-
-
-
-
-
 - If we want to process the bulk of collection then go for streams concept.
 - It's a special iterator class that allows processing collections of objects in a functional manner.
 
 ![img.png](img.png)
+
+### Intermediate Operations :
+intermediate operations like filter(), sorted(), and mapToInt() etc. in streams are lazy and do not 
+actually execute or store values until a terminal operation is invoked.
+- They return stream.
+- Intermediate operations are lazily loaded.
+- They don’t produce end result.
+
+```java
+Stream<Movie> stream1 = moviesList.stream().filter(m -> m.getYear() > 2017);
+Stream<Movie> stream2 = stream1.sorted();
+IntStream stream3 = stream2.mapToInt(e -> e.getYear());
+```
+All of these are intermediate operations, and none of them will actually perform any processing or store the results until you apply a terminal operation like forEach(), collect(), sum(), etc.
+
+`map()`, `filter()`, `distinct()`, `sorted()`, `limit()`, `skip()`
+
+### Terminal Operations :
+- They return non-stream.
+- They can't be chained together.
+- Pipeline of operations can have maximum one terminal operation, that too at the end.
+- Terminal operations are eagerly loaded.
+`forEach()`, `toArray()`, `reduce()`, `collect()`, `min()`, `max()`, `count()`, 
+`anyMatch()`, `allMatch()`, `noneMatch()`, `findFirst()`, `findAny()`
+

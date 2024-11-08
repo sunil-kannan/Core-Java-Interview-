@@ -124,7 +124,7 @@ public class LambdaExceptionHandling {
     list.forEach(i -> {
       if (i < 0) {
         // below will give the compile error
-        throw new IllegalArgumentException("Negative numbers are not allowed.");
+        throw new InterruptedException("Negative numbers are not allowed.");
         // below code is possible because RuntimeException is an unchecked exception
         throw new RuntimeException(); 
       }

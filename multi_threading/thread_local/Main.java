@@ -29,8 +29,8 @@ class SharedMapWithUserContext implements Runnable{
         threadLocal.remove();
     }
 }
-public class Main {
 
+public class Main {
     public static void main(String[] args) throws InterruptedException {
         SharedMapWithUserContext firstUser = new SharedMapWithUserContext(1);
         SharedMapWithUserContext secondUser = new SharedMapWithUserContext(2);

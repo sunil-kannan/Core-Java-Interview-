@@ -19,7 +19,7 @@ public class HashTableDemo {
         Map<Integer, Movie> movies = new Hashtable<>();
         movies.put(1, new Movie("Mersal", 2017, "Vijay", "Atlee"));
         movies.put(2, new Movie("Bigil", 2019, "Vijay", "Atlee"));
-        movies.put(4, new Movie("Theri", 2016, "Vijay", "Atlee"));
+        movies.put(null, new Movie("Theri", 2016, "Vijay", "Atlee"));
         movies.put(3, new Movie("Sarkar", 2018, "Vijay", "A.R. Murugadoss"));
         Set<Integer> keys = movies.keySet();
         keys.forEach(System.out::println);

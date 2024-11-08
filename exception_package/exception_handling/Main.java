@@ -4,7 +4,7 @@ package exception_package.exception_handling;
 
 import java.io.*;
 import java.sql.SQLException;
-import java.util.Scanner;
+import java.util.*;
 
 class Parent {
     void doThis() throws SQLException  {
@@ -62,6 +62,9 @@ public class Main extends Parent {
 
 
     public static void main(String[] args) {
+        List<Integer> minus = new ArrayList<>();
+        Collections.sort(minus);
+
 
         TryWithResources tryWithResources = new TryWithResources();
         MultiCatchBlock multiCatchBlock = new MultiCatchBlock();

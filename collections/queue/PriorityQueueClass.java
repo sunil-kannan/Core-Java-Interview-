@@ -20,5 +20,8 @@ public class PriorityQueueClass {
         // Accessing the head of the PriorityQueue
         System.out.println("Head of the queue: " + queue.peek());
         System.out.println(queue);
+        Queue<Integer> queue1 = new PriorityQueue<>();
+
+
     }
 }

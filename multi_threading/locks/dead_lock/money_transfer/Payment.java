@@ -57,6 +57,11 @@ public class Payment {
         Account acc2 = new Account(39747495L, "Godson", 3400);
         Account acc3 = new Account(39747496L, "Navin", 4000);
         Account acc4 = new Account(39747497L, "Kabilan", 3400);
+        Account acc5 = new Account(39747496L, "Navin", 4000);
+        Account acc6 = new Account(39747497L, "Kabilan", 3400);
+        System.out.println("Acc4 hash: "+acc4.hashCode());
+        System.out.println("Acc6 hash: "+acc6.hashCode());
+
 
         /*
             2 users are concurrently making payments, which can lead to deadlock.
@@ -78,11 +83,13 @@ public class Payment {
             TryLock can also be used, but one payment get fails and one only get succeed, so it is better to avoid.
         */
         Runnable transfer3 = () -> payment.transferWithSafety(acc3, acc4, 500);
-        Runnable transfer4 = () -> payment.transferWithSafety(acc4, acc3, 3400);
+        Runnable transfer4 = () -> payment.transferWithSafety(acc6, acc5, 3400);
         new Thread(transfer3).start();
         new Thread(transfer4).start();
         Thread.sleep(2000);
         System.out.println(acc3.getAmount());
         System.out.println(acc4.getAmount());
+        System.out.println(acc5.getAmount());
+        System.out.println(acc6.getAmount());
     }
 }

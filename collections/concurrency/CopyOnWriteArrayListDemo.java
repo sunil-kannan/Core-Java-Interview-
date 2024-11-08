@@ -31,6 +31,7 @@ public class CopyOnWriteArrayListDemo {
         list1.add(3);
         list1.add(4);
         list1.add(5);
+
         Iterator<Integer> it = list1.iterator();
         while(it.hasNext()){
             Integer value = it.next();

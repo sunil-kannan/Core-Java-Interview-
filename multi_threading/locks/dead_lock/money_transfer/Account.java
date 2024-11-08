@@ -1,5 +1,7 @@
 package multi_threading.locks.dead_lock.money_transfer;
 
+import java.util.Objects;
+
 public class Account {
 
     private Long accountNo;
@@ -14,6 +16,18 @@ public class Account {
 
     private String name;
     private long amount;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Account account)) return false;
+        return amount == account.amount && Objects.equals(accountNo, account.accountNo) && Objects.equals(name, account.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(accountNo, name, amount);
+    }
 
     public String getName() {
         return name;

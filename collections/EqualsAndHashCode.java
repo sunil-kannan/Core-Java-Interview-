@@ -33,6 +33,12 @@ public class EqualsAndHashCode {
         Employee employee1 = new Employee(1, "John");
         Employee employee2 = new Employee(1, "John");
 
+
+        Map<Object, String> map1 = new HashMap<>();
+        map1.put(employee1,"2");
+        map1.put(employee2,"3");
+        System.out.println("Map length: "+map1.size());
+
         // Shallow compare: compares memory addresses, always false for different objects
         System.out.println("Shallow Compare: " + (employee1 == employee2));
 

@@ -135,7 +135,6 @@ public class Main {
 - TreeSet doesn't allow null element.
 - TreeSet can only allow those generic types that are comparable which means class should implement comparable interface.
 
-
 ## Map
 - A Map is a collection of key/value pairs that can use any data type as a key and can maintain the order of its entries.
 - Map doesn't allow duplicate keys, but it allows duplicate values. 
@@ -148,12 +147,17 @@ public class Main {
 - HashMaps allow for null values and keys. This means that a null key can be used to store a value, and a null value can be associated with a key.
 - HashMaps are not thread-safe, which means that if multiple threads access the same hashmap simultaneously, it can lead to data inconsistencies. If thread safety is required, ConcurrentHashMap can be used.
 
+### HashTable
+- Does not allow null key
+- It is thread safe and synchronized
+
 ### LinkedHashMap
 - It is the same as HashMap with an additional feature that it maintains insertion order.
 
 ### TreeMap
 - Only allows keys of generic types that are comparable, meaning the class should implement the Comparable interface.
 - By using TreeMap the order will be preserved but in Hashmap it may or may not preserve the order.
+- Does not allow null key
 
 ## Collections That Need `Comparator` or `Comparable`:
 
@@ -269,5 +273,26 @@ Some collections are synchronized, but they may still throw `ConcurrentModificat
 * **`CopyOnWriteArrayList`** (Does not throw `ConcurrentModificationException` but can have performance implications due to copying the array)
 * **`CopyOnWriteArraySet`** (Similar behavior to `CopyOnWriteArrayList`)
 
+## Collections and Null Handling
 
+### Collections that do not allow `null` keys:
 
+* **PriorityQueue**: Does not allow `null` elements if a comparator is used that does not handle `null`.
+* **TreeMap**: Does not allow `null` keys if a comparator is used that does not handle `null`.
+* **TreeSet**: Does not allow `null` elements if a comparator is used that does not handle `null`.
+* **ConcurrentSkipListSet**: Does not allow `null` elements.
+
+### Collections that do not allow `null` values:
+
+* **ConcurrentSkipListSet**: Does not allow `null` elements.
+* **EnumSet**: Does not allow `null` elements.
+
+### Collections that do not allow both `null` keys and `null` values:
+* **ConcurrentHashMap**: Does not allow `null` keys or values.
+* **Hashtable**: Does not allow `null` keys or values. The design choice to disallow null was partly due to early implementations of hash tables that were not robust in handling null values.
+
+## Additional Notes
+
+### Collections that handle `null` values with special considerations:
+* **PriorityQueue**: Handles `null` values if the comparator permits it.
+* **TreeMap/TreeSet**: Handles `null` keys if the comparator permits it.

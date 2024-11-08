@@ -1,5 +1,6 @@
 package java8_features.stream;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 public class Movie implements Comparable<Movie>{
@@ -77,4 +78,7 @@ public class Movie implements Comparable<Movie>{
     public int compareTo(Movie o) {
         return this.getYear() - o.getYear();
     }
+
+    public static Comparator<Movie> byYear = Comparator
+            .comparing(Movie::getYear, Comparator.nullsFirst(Comparator.naturalOrder()));
 }

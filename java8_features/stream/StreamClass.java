@@ -4,6 +4,8 @@ import org.w3c.dom.ls.LSOutput;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 
 public class StreamClass {
@@ -29,6 +31,9 @@ public class StreamClass {
                 new Movie("Asuran", 2019, "Dhanush", "Vetrimaaran")
         );
 
+        Stream<Movie> stream1 = moviesList.stream().filter(m -> m.getYear() >2017).limit(3);
+        Stream<Movie> stream2 = stream1.sorted();
+        IntStream stream3 = stream2.mapToInt(e -> e.getYear());
         // Task: Count how many movies each director has in the list.
         Map<String, Long> moviesCountByDirector = moviesList.stream().
                 collect(Collectors.groupingBy(
