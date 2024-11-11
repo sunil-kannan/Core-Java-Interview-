@@ -124,7 +124,7 @@ public class Main {
 ### HashSet
 - Insertion order is not preserved.
 - Hashset cannot allow duplicate values.
-- Hashset allow null values.
+- Hashset allow one null values.
 
 ### LinkedHashSet
 - It uses a hashtable & a doubly-linked list to store & maintain the elements.
