@@ -72,6 +72,7 @@ public static void main(String[] args) {
     },"My Thread");
     System.out.println(thread.getName()); // My Thread
     thread.setName("Java Thread");  // like this also you can change the values
+    thread.start();
 }
 ```
 ## Synchronization in MultiThreading

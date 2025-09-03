@@ -1,5 +1,6 @@
 package multi_threading.locks;
 
+import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -23,8 +24,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * <p> UnFair lock = Faster (more throughput). Thread starvation could be possible
  */
 public class ReentrantLockDemo {
-    private static final ReentrantLock lock = new ReentrantLock();
-    private static final ReentrantLock fairLock = new ReentrantLock(true);
+    private static final Lock lock = new ReentrantLock();
+    private static final Lock fairLock = new ReentrantLock(true);
     private static int count = 0;
 
     public static void acccessResource() {

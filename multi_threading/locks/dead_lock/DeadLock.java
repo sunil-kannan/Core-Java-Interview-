@@ -1,10 +1,11 @@
 package multi_threading.locks.dead_lock;
 
+import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class DeadLock implements Process{
-    private static final ReentrantLock lockA = new ReentrantLock();
-    private static final ReentrantLock lockB = new ReentrantLock();
+    private static final Lock lockA = new ReentrantLock();
+    private static final Lock lockB = new ReentrantLock();
     @Override
     public void processThis() {
         try {

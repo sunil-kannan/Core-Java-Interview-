@@ -34,6 +34,7 @@ class Q {
             } catch (Exception e) {
             }
         }
+        System.out.println("Consumer running");
         System.out.println("Put: " + value);
         this.value = value;
         valueSet = true;
@@ -58,6 +59,7 @@ class Producer implements Runnable {
             q.setValue(i++); // Produce a new value
             try {
                 Thread.sleep(1500);
+                System.out.println("Producer running");
             } catch (Exception e) {
             }
         }
@@ -90,7 +92,7 @@ public class InterThreadCommunication {
 
     public static void main(String[] args) {
         Q q = new Q(); // Create the shared resource
-        new Producer(q); // Create and start the producer thread
         new Consumer(q); // Create and start the consumer thread
+        new Producer(q); // Create and start the producer thread
     }
 }

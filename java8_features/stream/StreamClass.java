@@ -31,6 +31,10 @@ public class StreamClass {
                 new Movie("Asuran", 2019, "Dhanush", "Vetrimaaran")
         );
 
+        // Task: Sort using stream api based on year
+        List<Movie> moviesSorted = moviesList.stream().sorted((o1, o2) -> o1.getYear() - o2.getYear()).toList();
+        System.out.println(moviesSorted);
+
         Stream<Movie> stream1 = moviesList.stream().filter(m -> m.getYear() >2017).limit(3);
         Stream<Movie> stream2 = stream1.sorted();
         IntStream stream3 = stream2.mapToInt(e -> e.getYear());
@@ -91,6 +95,7 @@ public class StreamClass {
                 System.out.println("Movies before 2020: "+ v);
             }
         });
+
 
     }
 }

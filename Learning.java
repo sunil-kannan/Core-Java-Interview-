@@ -1,7 +1,9 @@
 
 import java8_features.stream.Movie;
 
+import java.lang.ref.WeakReference;
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.text.NumberFormat;
 import java.util.*;
 import java.util.concurrent.*;
@@ -28,52 +30,44 @@ interface B {
 
 interface check {
     void method1(int a, String b);
-    default void method3(){
+
+    default void method3() {
+
+    }
+}
+interface check1 {
+    void method1(int a, String b);
+
+    default void method3() {
 
     }
 }
 
-class Profile implements check{
+class Profile implements check , check1{
+
+
+
 
     @Override
     public void method1(int a, String b) {
 
     }
+
+    @Override
+    public void method3() {
+        check1.super.method3();
+    }
+
+//    @Override
+//    public void method3() {
+//        check.super.method3();
+//    }
 }
 
-public class Learning  implements Comparator<Learning>, Comparable<Learning>, A, B {
+public class Learning implements Comparator<Learning>, Comparable<Learning>, A, B {
     @Override
     public void check() {
 
-    }
-    public static boolean isValid(String s) {
-        Stack<Character> stack = new Stack<>();
-        for (char ch : s.toCharArray()) {
-            if (ch == '(' || ch == '[' || ch == '{')
-                stack.push(ch);
-
-            if (stack.isEmpty())
-                return false;
-
-            System.out.println("Came");
-            char c = stack.pop();
-            switch (ch) {
-                case ')'->{
-                    if (c != '(')
-                        return false;
-                }
-
-                case '}'->{
-                    if (c != '{')
-                        return false;
-                }
-                case ']'->{
-                    if (c != '[')
-                        return false;
-                }
-            }
-        }
-        return stack.isEmpty();
     }
     @Override
     public void defaultMethod() {
@@ -84,29 +78,6 @@ public class Learning  implements Comparator<Learning>, Comparable<Learning>, A,
         System.out.println("Learning constructor");
     }
 
-
-    private static final String TEXT = """
-            It was many and many a year ago,
-            In a kingdom by the sea,
-            That a maiden there lived whom you may know
-            By the name of ANNABEL LEE;
-            And this maiden she lived with no other thought
-            Than to love and be loved by me.
-            I was a child and she was a child,
-            In this kingdom by the sea;
-            But we loved with a love that was more than love-
-            I and my Annabel Lee;
-            With a love that the winged seraphs of heaven
-            Coveted her and me.""";
-
-    public static int minLength(String s) {
-        StringBuilder buffer = new StringBuilder(s);
-        while (s.contains("AB") || s.contains("CD")) {
-            s = s.replace("AB", "");
-            s = s.replace("CD", "");
-        }
-        return s.length();
-    }
 
     public static void getmovie(Movie movie) {
         System.out.println(movie);
@@ -126,10 +97,42 @@ public class Learning  implements Comparator<Learning>, Comparable<Learning>, A,
         }
         return score;
     }
-
+    public int lengthOfLIS(int[] nums) {
+        List<Integer> sub = new ArrayList<>();
+        for (int num : nums) {
+            int pos = Collections.binarySearch(sub, num);
+            if (pos < 0)
+                pos = -(pos + 1);
+            if (pos < sub.size()) {
+                sub.set(pos, num);
+            } else {
+                sub.add(num);
+            }
+        }
+        return sub.size();
+    }
 
     public static void main(String[] args) throws InterruptedException, ExecutionException, SQLException {
-        System.out.println(isValid("(())"));
+        Integer x = null;
+        Integer y = 127;
+        assert x != null : "The list should never be null here"; // Line 2
+        System.out.println(x == y); // Line 1
+        System.out.println(x); // Line 3
+
+        String str1 = "abz";
+        String str2 = "ad";
+        int index = 0;
+        for(char ch: str1.toCharArray()){
+            int temp1 = ch - 97 ;
+            int temp2 = str2.charAt(index);
+            System.out.println(temp1%25);
+        }
+        if(str1.charAt(0) == '0'){
+
+        }
+      int n = str1.charAt(0)-97;
+        int s = str1.charAt(0);
+        System.out.println(n+" "+s);
     }
 
 
@@ -144,157 +147,171 @@ public class Learning  implements Comparator<Learning>, Comparable<Learning>, A,
     }
 }
 
-class Employee {
-    private String name;
-
-    public Employee(String name, Double salary) {
-        this.name = name;
-        this.salary = salary;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Double getSalary() {
-        return salary;
-    }
-
-    public void setSalary(Double salary) {
-        this.salary = salary;
-    }
-
-    private Double salary;
-}
 
 
-
-class Resource {
-    public synchronized static void methods(){
-        System.out.println(Thread.currentThread().getName() + " has acquired the lock and is going to sleep.");
-
-        try {
-            // Thread goes to sleep while holding the lock
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println(Thread.currentThread().getName() + " has finished sleeping and will now release the lock.");
-    }
-    public synchronized void accessResource() {
-        System.out.println(Thread.currentThread().getName() + " has acquired the lock and is going to sleep.");
-
-        try {
-            // Thread goes to sleep while holding the lock
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println(Thread.currentThread().getName() + " has finished sleeping and will now release the lock.");
-    }
-}
-
-class Pass{
-    Integer a;
-    String b;
-}
 //Exception in thread "main" java.lang.NullPointerException: Cannot assign field "a" because "pass" is null
 //at Main.main(Learning.java:273)
 class Main {
-    public static String longest(int i, int j, String s){
+    public static String longest(int i, int j, String s) {
 
-        while(i>=0 && j<s.length() && s.charAt(i) == s.charAt(j)){
+        while (i >= 0 && j < s.length() && s.charAt(i) == s.charAt(j)) {
             i--;
             j++;
         }
-        return s.substring(i+1,j);
+        return s.substring(i + 1, j);
     }
-    public static void check(Pass pass){
-        Objects.requireNonNull(pass);
-        pass.a = 4;
+    public static void dothis(){
+        System.out.println("Do this");
+        throw new RuntimeException();
     }
+
+    public List<String> wordSubsets(String[] words1, String[] words2) {
+        List<String> list = new ArrayList<>();
+        Map<Character, Integer> maxFreq = new HashMap<>();
+        for (String word : words2) {
+            // Temporary map to count frequency of characters in the current word
+            Map<Character, Integer> tempMap = new HashMap<>();
+            for (char ch : word.toCharArray()) {
+                tempMap.merge(ch, 1, Integer::sum);
+            }
+            // Update the global map with the maximum frequency of each character
+            for (Map.Entry<Character, Integer> entry : tempMap.entrySet()) {
+                char ch = entry.getKey();
+                int freq = entry.getValue();
+                maxFreq.put(ch, Math.max(maxFreq.getOrDefault(ch, 0), freq));
+            }
+        }
+//
+//        for(String word: words1){
+//            Map<String, Integer> temp = new HashMap<>();
+//            for(char ch: word.toCharArray()){
+//                temp.merge(String.valueOf(ch),1,Integer::sum);
+//            }
+//            int count =0;
+//            for(Map.Entry<String , Integer> val : map.entrySet()){
+//                if(temp.get(val.getKey()) >=val.getValue())
+//                    count++;
+//                else
+//                    break;
+//            }
+//            if(count == map.size()){
+//                list.add(word);
+//            }
+//        }
+        return list;
+
+    }
+
     public static void main(String[] args) {
 
-        AnyClass anyClass = new AnyClass();
 
-        new Thread()
-        {
-            @Override
-            public void run()
-            {
-                anyClass.anyMethod();
+
+        try{
+            System.out.println("Main method");
+            dothis();
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }finally {
+            System.out.println("Finally method");
+        }
+        Thread thread2 = new Thread(() -> {
+            try {
+                System.out.println("Thread 2: Sleeping...");
+                Thread.sleep(5000);
+                System.out.println("Thread 2: Finished.");
+            } catch (InterruptedException e) {
+                System.out.println("Thread 2: Interrupted!");
             }
-        }.start();
+        });
+        new Thread(() -> {
+            try {
+                Thread.sleep(2000);
+                System.out.println("Main: Interrupting Thread 2...");
+                thread2.interrupt();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
 
+        String digits = "3392";
+        System.out.println(digits.charAt(2) - '0');
+        System.out.println(digits.charAt(2));
+        int num = digits.charAt(2) ;
+        System.out.println(num);
+        Queue<Integer> pq = new PriorityQueue<>();
 
-        PriorityQueue<Integer> pq = new PriorityQueue<Integer>((p, q) -> q - p);
+        char c = '9' - '5';
+        System.out.println(c);
 
-        System.out.println(Integer.compare(3,4));
-        int n=38;
+        String s = "abcde";
+        System.out.println(s.substring(1, 3));
+        // Immutable list
+        List<String> immutableList = Stream.of("apple", "banana").toList();
+//         immutableList.add("cherry"); // Throws UnsupportedOperationException
 
-        LinkedList<Integer> linkedList = new LinkedList<>();
-        Collections.sort(linkedList);
-        Object[] obj = new Object[4];
+        // Modifiable list
+        List<String> modifiableList = Stream.of("apple", "banana").collect(Collectors.toList());
+        modifiableList.add("cherry"); // Works without exception
 
-        String ch = "dkdkd";
-        System.out.println(ch.substring(2,5));
-        System.out.println(  longest(2,3,"sassa"));
-
-        Resource resource = new Resource();
-        Resource resource1 = new Resource();
-
-        // Thread 1 trying to access the synchronized method
-        Thread thread1 = new Thread(() -> resource.accessResource(), "Thread-1");
-
-        // Thread 2 trying to access the synchronized method
-        Thread thread2 = new Thread(() -> resource.accessResource(), "Thread-2");
-
-        // Thread 1 trying to access the synchronized method
-        Thread thread3 = new Thread(() -> resource.methods(), "Thread-3");
-
-        // Thread 2 trying to access the synchronized method
-        Thread thread4 = new Thread(() -> resource1.methods(), "Thread-4");
-        thread1.start();
-        thread2.start();
-        thread3.start();thread4.start();
-
-    }
-}
-class AnyClass
-{
-    void anyMethod()
-    {
-        try
-        {
-            wait();
+        System.out.println(modifiableList instanceof ArrayList);
+        System.out.println("Immutable List: " + immutableList);
+        System.out.println("Modifiable List: " + modifiableList);
+        char[][] charr = new char[4][4];
+        if (charr[1][1] == '\u0000') {
+            System.out.println("The character at charr[1][1] is the default null character.");
+        } else {
+            System.out.println("The character at charr[1][1] has been set to something else.");
         }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
+        Stack<Integer> stack = new Stack<>();
+        ArrayList<Integer> list = new ArrayList<>();
+
+
+    }
+}
+class Person extends RecursiveTask<Integer> {
+    int count;
+    int val;
+    int sum = 0;
+
+    Person(int val, int count, int sum) {
+        this.val = val;
+        this.count = count;
+        this.sum = sum;
+    }
+
+    @Override
+    protected Integer compute() {
+        if (count == 10) {
+            return sum;
         }
+        sum = val++;
+        count= count+1;
+        Person person = new Person(val, count, sum);
+        person.fork();
+        Person person1 = new Person(val, count, sum);
+        person1.fork();
+        System.out.println("Sum: "+sum + "Count: "+count);
+        return person.join() + person1.join();
     }
 }
 
-class Person {
-    private String name;
-    private int age;
+class MyChildren{
+    int a;
+//    MyChildren(int a){
+//        this.a = a;
+//    }
 
-    // Constructors, getters, and setters
-
-    public Person(String name, int age) {
-        this.name = name;
-        this.age = age;
+}
+class MyGeneric extends MyChildren{
+   int b;
+    public MyGeneric(int a, int b){
+        super.a = a;
+        this.b = b;
     }
 
-    // Default constructor is necessary for JAXB
-    public Person() {}
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        MyGeneric myGeneric = new MyGeneric(3,4);
+        System.out.println(myGeneric.a + myGeneric.b);
+    }
 }
-
-
 

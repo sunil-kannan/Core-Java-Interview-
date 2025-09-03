@@ -3,6 +3,16 @@ package multi_threading.executor_service;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 
+
+/**
+ * Work-Stealing Algorithm:
+ * The Fork/Join Framework uses a work-stealing algorithm, where idle threads "steal" tasks from other busy threads to ensure efficient CPU utilization.
+ * Tasks are executed in parallel across multiple threads from a shared pool, minimizing idle time.
+ * <p>
+ * Though it will be slow when you are handling with small amount of data, because the fork join pool creates
+ * new object thus it takes some time to create object so it will not be efficient so think before twice while using this fork join pool
+ *
+ */
 public class ForkJoinPoolExample extends RecursiveTask<Integer> {
     final int n;
     ForkJoinPoolExample(int n) {
@@ -10,16 +20,12 @@ public class ForkJoinPoolExample extends RecursiveTask<Integer> {
     }
 
     public static void main(String[] args) throws InterruptedException {
+        ForkJoinPool forkJoinPool1 = ForkJoinPool.commonPool();
         ForkJoinPool forkJoinPool = new ForkJoinPool();
         int n = 5, sol;
         ForkJoinPoolExample f1 = new ForkJoinPoolExample(n);
         sol = f1.compute();
-        /**
-         * Though it will be slow when you are handling with small amount of data, because the fork join pool creates
-         * new object thus it takes some time to create object so it will not be efficient so think before twice while using this fork join pool
-         */
         System.out.println("Answer: "+sol);
-
     }
 
     @Override

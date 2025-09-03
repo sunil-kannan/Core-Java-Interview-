@@ -6,27 +6,31 @@ import java.util.Deque;
 import java.util.List;
 
 
-public class StringClass{
+public class StringClass {
 
-     static int Check(){
+    static int Check() {
         return 4;
     }
 
-    public  Boolean Check(int number) {
+    public Boolean Check(int number) {
         System.out.println("Check method from String class");
-        return  number >1 && true;
+        return number > 1 && true;
     }
 
-    public String method(){
+    public String method() {
         return "StringClass Method";
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
+        String s = "code";
+        String s0 = new String("code");
         String s1 = new String("code");
-        String s2 = "code";
-        System.out.println(s1 == s2); //false
-        System.out.println(s1.equals(s2)); //true
+        System.out.println(s == s0);
+        System.out.println(s0 == s1);
+        System.out.println(s0.equals(s1));
+        System.out.println(s == s0.intern());
+        System.out.println(s0.intern() == s1.intern());
 
         char[] ch = new char[]{'s', 'u', 'n', 'i', 'l'};
         String s3 = new String(ch, 2, 2);//(value, offset, count)
