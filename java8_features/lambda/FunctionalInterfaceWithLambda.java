@@ -19,7 +19,6 @@ interface CalculatorWithReturn {
 public class FunctionalInterfaceWithLambda {
 
     public static void main(String[] args) {
-
         CalculatorWithVoid calculator = () -> {
             System.out.println("Answer: " + (3 + 5));
         };

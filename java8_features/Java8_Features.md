@@ -23,8 +23,9 @@
 - Eg: Comparable, Consumer and Runnable etc.
 
 ## Lambda Expressions
-Lambda expression is an anonymous function (without name, return type and acccess modifier
+- Lambda expression is an anonymous function (without name, return type and acccess modifier
 and having one lambda (->) symbol)) . It provides a clear and concise way to represent a method of the `functional interface` using an expression
+- A lambda expression in Java is basically a shorthand for creating an instance of a functional interface (an interface with exactly one abstract method, also called SAM – Single Abstract Method).
 
 ## Method Reference
 - Method reference is an replacement of lambda expressions. It is used to refer method of Functional interface to an existing method.

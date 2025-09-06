@@ -1,6 +1,8 @@
 
 import java8_features.stream.Movie;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
 import java.sql.SQLException;
 import java.sql.SQLOutput;
@@ -64,7 +66,18 @@ class Profile implements check , check1{
 //    }
 }
 
+interface Constants {
+    int MAX_COUNT = 100;
+}
 public class Learning implements Comparator<Learning>, Comparable<Learning>, A, B {
+    public static void temp() throws FileNotFoundException {
+//        FileInputStream fis = new FileInputStream("abc.txt");
+        HashMap<Object, String> map = new HashMap<>();
+        map.put(null, "n ull");
+        map.put("check","check");
+        System.out.println(map.get(null)+ map.get("check"));
+
+    }
     @Override
     public void check() {
 
@@ -112,7 +125,8 @@ public class Learning implements Comparator<Learning>, Comparable<Learning>, A, 
         return sub.size();
     }
 
-    public static void main(String[] args) throws InterruptedException, ExecutionException, SQLException {
+    public static void main(String[] args) throws InterruptedException, ExecutionException, SQLException, FileNotFoundException {
+        temp();
         Integer x = null;
         Integer y = 127;
         assert x != null : "The list should never be null here"; // Line 2
