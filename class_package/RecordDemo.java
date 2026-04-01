@@ -6,6 +6,7 @@ import java.util.Objects;
 
 record Person(String name, String address, Integer age) {
     static Integer adultCount = 0;
+    // compact constructor
     public Person{
         if(age!=null && age>=18){
             adultCount++;
@@ -20,9 +21,8 @@ record Person(String name, String address, Integer age) {
 
 record PersonWithCustomConstructor(String name, String address, String city) {
     static String UNKNOWN_ADDRESS = "Unknown";
-    public PersonWithCustomConstructor { // Canonical constructor
+    public PersonWithCustomConstructor {
         Objects.requireNonNull(name);
-
     }
 
     // Additional custom constructor
@@ -38,7 +38,7 @@ record PersonWithCustomConstructor(String name, String address, String city) {
 }
 
 /**
- * 1. Using records, a public constructor, with an argument for each field, is generated for us.
+ * 1. Using records, a public constructor, with an argument for each field, is generated for us. This is called as canonical constructor
  * 2. We also receive public getters methods, whose names match the name of our field, for free.
  * 3. Equals method is generated for us. This method returns true if the supplied object is of the same type and the values of all of its fields match:
  * 4. You can also use static keyword in Record

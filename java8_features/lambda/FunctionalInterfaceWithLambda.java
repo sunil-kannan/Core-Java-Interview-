@@ -18,11 +18,18 @@ interface CalculatorWithReturn {
 
 public class FunctionalInterfaceWithLambda {
 
+    public static int add(int a, int b){
+        return a+b;
+    }
+
     public static void main(String[] args) {
         CalculatorWithVoid calculator = () -> {
             System.out.println("Answer: " + (3 + 5));
         };
         calculator.calculate();
+
+        CalculatorWithReturn c = FunctionalInterfaceWithLambda::add;
+
 
         CalculatorWithParameter calculator1 = (int a, int b) -> System.out.println("Answer: " + (a + b));
         calculator1.calculate(6, 6);

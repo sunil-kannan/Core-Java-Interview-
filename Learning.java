@@ -30,7 +30,7 @@ interface B {
     }
 }
 
-interface check {
+interface check{
     void method1(int a, String b);
 
     default void method3() {
@@ -216,7 +216,9 @@ class Main {
 
     }
 
+
     public static void main(String[] args) {
+
 
 
 

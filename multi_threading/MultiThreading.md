@@ -9,7 +9,7 @@ To execute an asynchronous thread, you need to extend the `Thread` class, which 
 
 - **Thread Initialization**: When you create a new instance of a thread, it is in the NEW state. The run method is not called yet.
 - **Calling start**: When you call the start method on the thread object, the JVM is notified to start the execution of the thread. This call transitions the thread from the NEW state to the RUNNABLE state.
-- **Native Method start0**: Inside the start method, the JVM calls a native method start0. This native method is responsible for creating a new operating system thread and starting its execution. The native implementation is platform-specific and is part of the JVM core code written in languages like C or C++.
+- **Native Method start**: Inside the start method, the JVM calls a native method start0. This native method is responsible for creating a new operating system thread and starting its execution. The native implementation is platform-specific and is part of the JVM core code written in languages like C or C++.
 - **Executing the run Method**: Once the operating system thread is created and started, it eventually invokes the run method of the Thread class or the Runnable target passed to the thread. This is done as part of the new thread's execution.
 - The run method in Java threads is called as part of the internal mechanism of the Java Virtual Machine (JVM). Specifically, the start method of the Thread class eventually invokes the run method by calling a native method named start0.
 
@@ -214,5 +214,189 @@ The heap in the RAM is where the actual objects and their fields (e.g., `obj.cou
         - Thread 1 sees `obj.count` as `2` in its local cache.
         - Thread 2 also sees `obj.count` as `2` in its local cache.
 
-
 Click here for the reference [Java Memory Model](https://dip-mazumder.medium.com/java-memory-model-a-comprehensive-guide-ba9643b839e)
+
+
+## What is PC Register
+
+### 🧩 1️⃣ What the PC Register Is
+
+PC stands for Program Counter.
+
+Each Java thread has its own private PC register.
+
+It’s a small memory area that stores the address (or index) of the next instruction that the thread should execute in the Java Virtual Machine (JVM).
+
+So in plain terms:
+
+🧠 The PC register tells the JVM “where the thread is right now” in its sequence of bytecode instructions.
+
+### ⚙️ 2️⃣ Why Each Thread Has Its Own PC Register
+
+Java threads run independently, possibly switching between each other (context switching).
+
+When a thread is paused and another is scheduled, the JVM must remember where to resume each thread later.
+
+The PC register stores that “resume point.”
+
+✅ Therefore:
+
+Each thread → separate stack + separate PC register.
+
+Shared resources (like heap) are not in PC register; PC register is thread-private.
+
+### 🧠 3️⃣ What the PC Register Actually Contains
+
+For Java (non-native) methods:
+
+The PC register holds the address of the next bytecode instruction to be executed.
+
+For native methods (executed via JNI):
+
+The value of the PC register is undefined (JVM leaves it unset during native execution).
+
+### 🧩 4️⃣ How It Fits in JVM Memory Model
+
+Here’s the JVM memory layout for each thread:
+
+[Thread]
+├── PC Register     🧠 → Holds address of next instruction
+├── JVM Stack       🧱 → Method calls, local variables, etc.
+├── Native Stack    🧩 → For native (JNI) methods
+└── ...
+
+
+And for the process (shared by all threads):
+
+[Shared JVM Memory]
+├── Heap            → Objects
+├── Method Area     → Class metadata, bytecode
+└── Runtime Constant Pool
+
+
+So, PC register = per-thread
+Heap, Method Area = shared among threads
+
+### 🚦 5️⃣ Analogy
+
+Think of a multi-threaded book reader:
+
+Each reader (thread) has a bookmark (PC register) that marks which line they’re reading in the book (the program).
+
+When one reader pauses and another continues, each knows exactly where to resume thanks to their own bookmark.
+
+### ⚡ 6️⃣ Interview-Friendly Answer
+
+The Program Counter (PC) register in Java is a per-thread memory area that stores the address of the current or next bytecode instruction being executed by that thread.
+It’s used by the JVM to keep track of where a thread is in its execution, and it’s essential for context switching.
+Each thread has its own PC register because threads execute independently.
+
+## how to ensure that all the thread has completed 
+### 🧩 1️⃣ Using Thread.join() (Basic Method)
+
+If you’re directly creating Thread objects, you can call join() on each one.
+
+``` java
+List<Thread> threads = new ArrayList<>();
+
+for (int i = 0; i < 5; i++) {
+Thread t = new Thread(() -> {
+System.out.println(Thread.currentThread().getName() + " running...");
+try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
+});
+threads.add(t);
+t.start();
+}
+
+// Wait for all threads to finish
+for (Thread t : threads) {
+t.join();
+}
+
+System.out.println("✅ All threads completed.");
+```
+
+
+✅ Explanation:
+
+join() blocks the calling thread (main) until the target thread finishes execution.
+
+Works perfectly for a small number of manually created threads.
+
+### ⚙️ 2️⃣ Using ExecutorService + shutdown() + awaitTermination()
+
+This is the most common pattern in modern Spring Boot / Java enterprise apps.
+```
+ExecutorService executor = Executors.newFixedThreadPool(3);
+
+for (int i = 0; i < 5; i++) {
+executor.submit(() -> {
+System.out.println(Thread.currentThread().getName() + " running...");
+try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
+});
+}
+
+executor.shutdown(); // Stop accepting new tasks
+executor.awaitTermination(10, TimeUnit.SECONDS); // Wait for all tasks to finish
+
+System.out.println("✅ All threads completed.");
+```
+
+
+✅ Explanation:
+
+shutdown() signals that no new tasks will be accepted.
+
+awaitTermination() waits until either all tasks complete or timeout occurs.
+
+
+### 🚦 3️⃣ Using CountDownLatch (for thread coordination)
+
+If you want fine-grained control — e.g., “wait until all worker threads finish before continuing.”
+
+``` 
+int numThreads = 5;
+CountDownLatch latch = new CountDownLatch(numThreads);
+
+for (int i = 0; i < numThreads; i++) {
+new Thread(() -> {
+System.out.println(Thread.currentThread().getName() + " done.");
+latch.countDown(); // Signal completion
+}).start();
+}
+
+latch.await(); // Wait until latch reaches 0
+System.out.println("✅ All threads completed.");
+```
+
+
+✅ Explanation:
+
+Initialize latch count = number of threads.
+
+Each thread calls countDown() when done.
+
+await() blocks the main thread until all have finished.
+
+### 💥 4️⃣ Using CompletableFuture.allOf() (Java 8+ Functional Style)
+
+If you’re working with async tasks via CompletableFuture, use allOf().
+
+```
+List<CompletableFuture<Void>> futures = IntStream.range(0, 5)
+.mapToObj(i -> CompletableFuture.runAsync(() -> {
+System.out.println("Task " + i + " running...");
+try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
+}))
+.toList();
+
+CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+System.out.println("✅ All threads completed.");
+```
+
+
+✅ Explanation:
+
+runAsync() submits tasks asynchronously.
+
+CompletableFuture.allOf() waits until all futures complete.

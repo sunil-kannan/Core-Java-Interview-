@@ -1,5 +1,5 @@
 ## Features
-- Lambda expressions,
+-  Lambda expressions,
 -  Functional interfaces,
 -  Method references,
 -  Default methods,

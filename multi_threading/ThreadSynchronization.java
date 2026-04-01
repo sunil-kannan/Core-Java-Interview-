@@ -1,6 +1,7 @@
 package multi_threading;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.LongAdder;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -8,6 +9,7 @@ public class ThreadSynchronization {
     static int count = 0;
     private static final Lock lock = new ReentrantLock();
     private static AtomicInteger counter = new AtomicInteger(0);
+    private static LongAdder counterLongadder = new LongAdder();
     private static void unsynchronized() {
         count++;
     }
